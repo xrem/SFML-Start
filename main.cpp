@@ -1,5 +1,7 @@
+/*
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 
 using namespace sf;
 
@@ -16,6 +18,30 @@ int WinMain() {
 	CircleShape circle(radius);
 	// и разместили её в центре экрана
 	circle.move(width / 2.0 - radius, height / 2.0 - radius);
+
+	// Спрайт - Sprite - Фигура + её поведение + текстура
+	// Текстура - картинка, которую вы накладываете поверх объекта
+
+	// Загрузка текстуры в контейнер
+	std::string path_to_texture = "C:\\Users\\XAdmin\\source\\repos\\SFML-Start\\texture.png";
+	Texture texture;
+	texture.loadFromFile(path_to_texture);
+
+	std::string path_to_brick_wall = "C:\\Users\\XAdmin\\source\\repos\\SFML-Start\\brick_wall.png";
+	Texture brick_wall;
+	brick_wall.loadFromFile(path_to_brick_wall);
+	brick_wall.setRepeated(true);
+
+	std::string path_to_rainbow_texture = "C:\\Users\\XAdmin\\source\\repos\\SFML-Start\\rainbow.png";
+	Texture rainbow_texture;
+	rainbow_texture.loadFromFile(path_to_rainbow_texture);
+	
+	// Создаём объект к которому применяем текстуру (спрайт)
+	Sprite squareSprite(texture);
+	Sprite wall(brick_wall, IntRect(0, 0, width, 4 * 28));
+	wall.move(0, 140);
+	Sprite red(rainbow_texture, IntRect(202, 0, 98, 98));
+	red.move(width - 98, 0);
 
 	// Используя класс круга создали другие фигуры (Триугольник, квадрат, 8-уг. 16-уг.)
 	CircleShape triangle(radius, 3);
@@ -61,6 +87,10 @@ int WinMain() {
 	octogon.setOutlineThickness(5.0f);
 	hexogon.setOutlineThickness(5.0f);
 
+	// Объявяем таймер
+	Clock clock;
+	// 60 Frame Per Second (1000ms / 60 frames) = 16.6ms;
+	const float delay = 16.66667f;
 
 	bool isRunning = true;
 	while (isRunning) {
@@ -75,6 +105,21 @@ int WinMain() {
 				window.close();
 			}
 		}
+
+		// Перерисовываем сцену если время пришло.
+		if (clock.getElapsedTime().asMilliseconds() < delay) {
+			// Добавляем искустевенную задержку
+			continue;
+		}
+		else {
+			clock.restart();
+		}
+
+		star.rotate(1);
+		square.rotate(1);
+
+		window.clear();
+
 		// Рисуем многоугольник звезда
 		window.draw(star);
 		// Добавляем круг на холст.
@@ -85,6 +130,10 @@ int WinMain() {
 		window.draw(octogon);
 		window.draw(hexogon);
 	
+		// Рисуем спрайт
+		window.draw(squareSprite);
+		//window.draw(wall);
+		window.draw(red);
 
 		// Отрисовываем окно.
 		window.display();
@@ -92,3 +141,4 @@ int WinMain() {
 
 	return 0;
 }
+*/
